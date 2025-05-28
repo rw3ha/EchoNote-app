@@ -3,25 +3,99 @@ package org.rw3ha.echonote.ui.auth;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.rw3ha.echonote.R;
 import org.rw3ha.echonote.ui.auth.base.BaseActivity;
+import org.rw3ha.echonote.util.auth.AuthUtils;
+import org.rw3ha.echonote.util.auth.GoogleSignInHelper;
 
 public class RegisterActivity extends BaseActivity {
+
+    private FirebaseAuth mAuth;
+    private GoogleSignInHelper googleSignInHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        //Set up shared element transition for app icon
-        setupSharedElementTransition(R.id.ic_logo_image);
+        mAuth = FirebaseAuth.getInstance();
+        googleSignInHelper = new GoogleSignInHelper(this);
 
+        setupSharedElementTransition(R.id.ic_logo_image);
         View mainContent = findViewById(android.R.id.content);
         setupWindowInsets(mainContent);
 
-        // Close and return to Login Page
         ImageView closeButton = findViewById(R.id.ic_register_close);
         closeButton.setOnClickListener(v -> supportFinishAfterTransition());
+
+        findViewById(R.id.register_login_cardView).setOnClickListener(
+                v -> startGoogleSignIn()
+        );
+
+        findViewById(R.id.sign_up_button).setOnClickListener(
+                v -> startEmailPasswordRegister()
+        );
+
+    }
+
+    private void startGoogleSignIn() {
+        googleSignInHelper.startGoogleSignIn(new GoogleSignInHelper.SignInCallback() {
+            @Override
+            public void onSignInSuccess() {
+                goToNotes();
+            }
+
+            @Override
+            public void onSignInFailure(String errorMessage) {
+                AuthUtils.showToast(RegisterActivity.this, errorMessage);
+            }
+        }, getString(R.string.web_client_id));
+    }
+
+    private void startEmailPasswordRegister() {
+        TextInputEditText nameInput = findViewById(R.id.fname_textInput);
+        TextInputEditText emailInput = findViewById(R.id.register_email_textInput);
+        TextInputEditText passwordInput = findViewById(R.id.register_password_textInput);
+        TextInputEditText confirmPasswordInput = findViewById(R.id.confirm_password_textInput);
+
+        if (nameInput != null &&
+                emailInput != null &&
+                passwordInput != null &&
+                confirmPasswordInput != null &&
+                !AuthUtils.isEmpty(nameInput.getText().toString().trim()) &&
+                !AuthUtils.isEmpty(emailInput.getText().toString().trim()) &&
+                !AuthUtils.isEmpty(passwordInput.getText().toString().trim()) &&
+                !AuthUtils.isEmpty(confirmPasswordInput.getText().toString().trim())) {
+            String email = emailInput.getText().toString().trim();
+            String password = passwordInput.getText().toString().trim();
+            String confirmPassword = confirmPasswordInput.getText().toString().trim();
+
+            if (!password.equals(confirmPassword)) {
+                AuthUtils.showToast(this, "Passwords do not match.");
+                return;
+            }
+
+            if (password.length() < 6) {
+                AuthUtils.showToast(this, "Password must be at least 6 characters long.");
+                return;
+            }
+
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
+                    task -> {
+                if (task.isSuccessful()) {
+                    goToNotes();
+                }  else {
+                    AuthUtils.showToast(this, "Registration Failed: "
+                    + task.getException().getMessage());
+                }
+            });
+        } else {
+            AuthUtils.showToast(this, "Please fill all required fields.");
+        }
     }
 }

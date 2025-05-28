@@ -14,6 +14,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
+import org.rw3ha.echonote.ui.notes.activities.NotesActivity;
+
 /**
  * Base activity with helper methods for the authentication pages
  */
@@ -60,6 +62,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 startActivity(intent, options.toBundle());
             });
         }
+    }
+
+    protected void goToNotes() {
+        startActivity(new Intent(this, NotesActivity.class));
+        finish();
     }
 
 }

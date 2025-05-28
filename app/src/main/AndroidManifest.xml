@@ -18,6 +18,10 @@
         android:theme="@style/Theme.App.Starting"
         tools:targetApi="31">
 
+        <meta-data
+            android:name="credentials_service_url"
+            android:value="https://credentials.googleapis.com" />
+
         <activity
             android:name=".ui.auth.LoginActivity"
             android:exported="true"
@@ -39,7 +43,7 @@
             android:theme="@style/Base.Theme.EchoNote"/>
 
         <activity
-            android:name=".ui.notes.NotesActivity"
+            android:name=".ui.notes.activities.NotesActivity"
             android:exported="false" />
     </application>
 

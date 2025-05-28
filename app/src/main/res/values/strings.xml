@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">EchoNote</string>
     <string name="app_logo">App Logo</string>
+    <string name="web_client_id">387619323388-88bjrhipt7ai7jnlcrl60fvf7ah83tfb.apps.googleusercontent.com</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -34,4 +35,12 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="continue_google">Continue With Google</string>
+    <string name="search">Search</string>
+    <string name="navigation_bar_home_button">Navigation Bar Home Button</string>
+    <string name="navbar_add_note_button">Navigation Bar Add Note Button</string>
+    <string name="navbar_profile_button">Navigation Bar Profile Button</string>
+    <string name="my_notes">My Notes</string>
+    <string name="settings">EchoNote App Settings</string>
+    <string name="profile_pic">EchoNote Profile Picture</string>
+    <string name="categories">Note Categories</string>
 </resources>
