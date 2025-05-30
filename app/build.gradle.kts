@@ -38,6 +38,8 @@ android {
 
 dependencies {
 
+    var room_version = "2.7.1"
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -54,9 +56,11 @@ dependencies {
     implementation("androidx.credentials:credentials:1.5.0")
     implementation("androidx.credentials:credentials-play-services-auth:1.5.0")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-
-
     implementation("com.google.android.gms:play-services-auth:21.3.0")
+
+    //Room Database
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
 
     implementation(libs.lifecycle.viewmodel.ktx)
     testImplementation(libs.junit)
