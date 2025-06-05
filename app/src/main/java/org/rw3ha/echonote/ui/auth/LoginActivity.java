@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.rw3ha.echonote.R;
 import org.rw3ha.echonote.util.auth.AuthUtils;
 import org.rw3ha.echonote.util.auth.GoogleSignInHelper;
-import org.rw3ha.echonote.ui.auth.base.BaseActivity;
+import org.rw3ha.echonote.ui.base.BaseActivity;
 
 public class LoginActivity extends BaseActivity {
 

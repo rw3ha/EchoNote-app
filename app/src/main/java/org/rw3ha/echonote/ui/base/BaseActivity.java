@@ -1,4 +1,4 @@
-package org.rw3ha.echonote.ui.auth.base;
+package org.rw3ha.echonote.ui.base;
 
 import android.app.ActivityOptions;
 import android.content.Intent;

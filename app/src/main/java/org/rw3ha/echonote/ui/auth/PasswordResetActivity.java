@@ -9,7 +9,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.rw3ha.echonote.R;
-import org.rw3ha.echonote.ui.auth.base.BaseActivity;
+import org.rw3ha.echonote.ui.base.BaseActivity;
 
 public class PasswordResetActivity extends BaseActivity {
 
